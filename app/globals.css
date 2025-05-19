@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ */
+/*  Component-level utilities                                          */
+/* ------------------------------------------------------------------ */
+
+.audio-indicator {
+  @apply inline-block w-5 h-5 rounded-full align-middle bg-gray-400;
+}
+
+.audio-indicator.active {
+  @apply bg-green-500;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.controls {
+  @apply my-5;
+}
+
+.form-group {
+  @apply mb-4;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Design tokens (CSS variables)                                      */
+/* ------------------------------------------------------------------ */
+
+@layer base {
+  :root {
+    --background: 48 100% 93%; /* Light cream background */
+    --foreground: 0 0% 20%; /* Dark text */
+    --card: 48 100% 97%; /* Lighter cream for cards */
+    --card-foreground: 0 0% 20%;
+    --popover: 48 100% 97%;
+    --popover-foreground: 0 0% 20%;
+    --primary: 220 90% 55%; /* Brand accent */
+    --primary-foreground: 0 0% 100%;
+    --brand-accent: 220 90% 55%;
+    --secondary: 45 70% 85%; /* Light beige */
+    --secondary-foreground: 0 0% 20%;
+    --muted: 45 30% 92%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 45 70% 85%;
+    --accent-foreground: 0 0% 20%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 45 70% 85%;
+    --input: 45 70% 85%;
+    --ring: 45 70% 85%;
+    --radius: 0.5rem;
+  }
+
+  /* Dark theme overrides */
+  .dark {
+    --background: 222 47% 11%; /* Slate 900 */
+    --foreground: 210 40% 98%; /* Slate 50  */
+    --card: 222 47% 14%; /* Slate 800 */
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 14%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 220 90% 55%; /* Keep brand accent */
+    --primary-foreground: 0 0% 100%;
+    --brand-accent: 220 90% 55%;
+    --secondary: 222 34% 20%; /* Slate 700 */
+    --secondary-foreground: 210 40% 98%;
+    --muted: 222 34% 17%; /* Slate 750 */
+    --muted-foreground: 210 20% 80%;
+    --accent: 222 34% 20%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 222 34% 20%;
+    --input: 222 34% 20%;
+    --ring: 222 34% 20%;
+    --radius: 0.5rem;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Global element resets                                              */
+/* ------------------------------------------------------------------ */
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
