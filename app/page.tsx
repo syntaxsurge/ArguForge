@@ -84,13 +84,13 @@ export default async function HomePage() {
       <section className="mx-auto flex max-w-7xl flex-col items-center gap-12 px-4 sm:px-6 pt-20 lg:flex-row lg:items-start lg:gap-24 lg:pt-32">
         {/* Copy */}
         <div className="max-w-2xl space-y-8 text-center lg:text-left">
-          <h1 className="break-words text-3xl font-extrabold leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-            Forge&nbsp;
+          <h1 className="break-words text-balance text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight">
+            Forge{" "}
             <span className="bg-gradient-to-r from-primary via-primary/70 to-primary/45 bg-clip-text text-transparent">
-              stronger&nbsp;arguments
+              stronger arguments
             </span>
-            <br className="hidden sm:inline" />
-            with AI-powered debates
+            <br className="sm:hidden" />
+            {" with AI-powered debates"}
           </h1>
           <p className="text-base sm:text-lg text-muted-foreground md:text-xl">
             ArguForge pairs you with a relentless AI sparring partner that hones
