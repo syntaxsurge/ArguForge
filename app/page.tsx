@@ -81,10 +81,10 @@ export default async function HomePage() {
       <MainHeader user={user} compact />
 
       {/* Hero */}
-      <section className="mx-auto flex max-w-7xl flex-col items-center gap-16 px-6 pt-24 lg:flex-row lg:items-start lg:gap-24 lg:pt-32">
+      <section className="mx-auto flex max-w-7xl flex-col items-center gap-12 px-4 sm:px-6 pt-20 lg:flex-row lg:items-start lg:gap-24 lg:pt-32">
         {/* Copy */}
         <div className="max-w-2xl space-y-8 text-center lg:text-left">
-          <h1 className="text-5xl font-extrabold leading-tight tracking-tight md:text-7xl">
+          <h1 className="break-words text-3xl font-extrabold leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             Forge&nbsp;
             <span className="bg-gradient-to-r from-primary via-primary/70 to-primary/45 bg-clip-text text-transparent">
               stronger&nbsp;arguments
@@ -92,28 +92,32 @@ export default async function HomePage() {
             <br className="hidden sm:inline" />
             with AI-powered debates
           </h1>
-          <p className="text-lg text-muted-foreground md:text-xl">
+          <p className="text-base sm:text-lg text-muted-foreground md:text-xl">
             ArguForge pairs you with a relentless AI sparring partner that hones
             your logic, refines your rhetoric and tracks your progress — all in
             one streamlined platform.
           </p>
-          <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-start">
-            <Button asChild size="lg" className="px-10 py-6">
+          <div className="flex w-full flex-col items-center gap-4 sm:flex-row sm:justify-start">
+            <Button
+              asChild
+              size="lg"
+              className="w-full sm:w-auto px-10 py-6"
+            >
               <Link href={ctaHref}>Start Practising</Link>
             </Button>
             <Button
               asChild
               size="lg"
               variant="outline"
-              className="border-secondary bg-white/60 backdrop-blur hover:bg-secondary/10"
+              className="w-full sm:w-auto border-secondary bg-white/60 backdrop-blur hover:bg-secondary/10"
             >
               <Link href="#features">See Features</Link>
             </Button>
           </div>
         </div>
 
-        {/* Illustration */}
-        <div className="relative mx-auto w-full max-w-md lg:mx-0 lg:max-w-lg">
+        {/* Illustration – hidden on very small screens to remove overflow */}
+        <div className="relative mx-auto hidden w-full max-w-sm sm:block lg:mx-0 lg:max-w-lg">
           <Image
             src="https://cdn.arguforge.com/illustrations/argument.svg"
             alt="Abstract illustration of debating"
@@ -127,7 +131,7 @@ export default async function HomePage() {
       </section>
 
       {/* Divider */}
-      <div className="mx-auto mt-32 max-w-7xl px-6">
+      <div className="mx-auto mt-24 max-w-7xl px-6">
         <svg
           viewBox="0 0 1200 80"
           fill="none"
@@ -164,7 +168,7 @@ export default async function HomePage() {
 
       {/* Secondary CTA */}
       <section className="mx-auto mt-32 flex max-w-5xl flex-col items-center rounded-3xl border border-secondary/40 bg-card/70 px-10 py-20 text-center shadow-sm backdrop-blur-sm">
-        <h2 className="max-w-2xl text-3xl font-bold md:text-4xl">
+        <h2 className="max-w-2xl text-2xl sm:text-3xl font-bold md:text-4xl">
           Ready to elevate your debating skills?
         </h2>
         <p className="mt-4 max-w-xl text-muted-foreground">
