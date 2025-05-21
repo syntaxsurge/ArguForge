@@ -4,7 +4,14 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useMemo } from "react";
 
-import { Check, ChevronDown, ChevronUp, Search } from "lucide-react";
+import {
+  Check,
+  ChevronDown,
+  ChevronUp,
+  KeyRound,
+  ShieldCheck,
+  X,
+} from "lucide-react";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -32,6 +39,8 @@ type User = {
   email: string | null;
   username: string | null;
   credits: number;
+  sensay_api_key?: string | null;
+  sensay_org_id?: string | null;
 };
 
 interface Props {
@@ -58,10 +67,8 @@ export default function UserTable({
   const router = useRouter();
   const pathname = usePathname();
 
-  // Compute total pages
   const totalPages = Math.ceil(total / pageSize);
 
-  // Memoise query builder
   const buildQuery = useMemo(
     () =>
       (overrides: Record<string, string | number | undefined> = {}) => {
@@ -84,24 +91,23 @@ export default function UserTable({
     [currentPage, pageSize, query, sortField, sortDirection, pathname],
   );
 
-  // Handle client-side search submit to preserve SSR path
   const handleSearch = (formData: FormData) => {
     const q = formData.get("q") as string;
     router.push(buildQuery({ q, page: 1 }));
   };
 
-  // Helper to flip sort direction
   const nextDir = (field: string) =>
     sortField === field && sortDirection === "asc" ? "desc" : "asc";
 
   return (
     <Card className="border-secondary/40 bg-card/70 shadow-sm backdrop-blur-sm">
       <CardHeader className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-        <CardTitle className="text-lg font-semibold">Users ({total})</CardTitle>
+        <CardTitle className="text-lg font-semibold">
+          Users ({total})
+        </CardTitle>
 
-        {/* Search */}
         <form action={handleSearch} className="relative w-full max-w-sm">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <KeyRound className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             name="q"
             placeholder="Search email or username…"
@@ -140,6 +146,8 @@ export default function UserTable({
                     </Link>
                   </TableHead>
                 ))}
+                <TableHead className="px-4 py-3">Sensay Key?</TableHead>
+                <TableHead className="px-4 py-3">Org ID?</TableHead>
                 <TableHead className="px-4 py-3">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -175,6 +183,22 @@ export default function UserTable({
                     </span>
                   </TableCell>
 
+                  <TableCell className="px-4 py-3 text-center">
+                    {user.sensay_api_key ? (
+                      <ShieldCheck className="mx-auto h-5 w-5 text-emerald-600" />
+                    ) : (
+                      <X className="mx-auto h-5 w-5 text-muted-foreground" />
+                    )}
+                  </TableCell>
+
+                  <TableCell className="px-4 py-3 text-center">
+                    {user.sensay_org_id ? (
+                      <ShieldCheck className="mx-auto h-5 w-5 text-emerald-600" />
+                    ) : (
+                      <X className="mx-auto h-5 w-5 text-muted-foreground" />
+                    )}
+                  </TableCell>
+
                   <TableCell className="px-4 py-3">
                     <form
                       action={updateCredits}
@@ -205,7 +229,7 @@ export default function UserTable({
               {users.length === 0 && (
                 <TableRow>
                   <TableCell
-                    colSpan={4}
+                    colSpan={6}
                     className="py-6 text-center text-muted-foreground"
                   >
                     No users found
@@ -216,7 +240,6 @@ export default function UserTable({
           </Table>
         </ScrollArea>
 
-        {/* Pagination */}
         {totalPages > 1 && (
           <Pagination className="mt-6">
             <PaginationContent>
