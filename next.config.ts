@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
         hostname: "xuxdhlpsjy.ufs.sh",
       },
       {
-        hostname: "cdn.arguforge.com",
+        hostname: "api.sensay.io",
       },
     ],
   },

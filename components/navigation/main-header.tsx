@@ -48,31 +48,31 @@ function Header({ user, compact = false }: MainHeaderProps) {
   );
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-secondary/40 bg-card/70 backdrop-blur-sm supports-[backdrop-filter]:bg-card/60">
+    <header className="sticky top-0 z-50 w-full border-b border-secondary/40 bg-card/70 backdrop-blur-sm supports-[backdrop-filter]:bg-card/60 shadow-sm">
       <div
         className={cn(
           compact ? "max-w-5xl" : "mx-auto max-w-7xl",
-          "flex items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8",
+          "flex w-full items-center gap-6 px-4 py-3 sm:px-6 lg:px-8",
         )}
       >
-        {/* Site name & desktop nav */}
-        <div className="flex flex-shrink-0 items-center gap-6">
-          <Link href="/" className="whitespace-nowrap text-xl font-bold">
-            {siteConfig.name}
-          </Link>
-          <nav className="hidden items-center gap-6 text-sm md:flex">
-            {Links}
-          </nav>
-        </div>
+        {/* Site name */}
+        <Link href="/" className="whitespace-nowrap text-xl font-bold">
+          {siteConfig.name}
+        </Link>
+
+        {/* Desktop nav – centred by flex-1 grow */}
+        <nav className="hidden flex-1 items-center justify-center gap-6 text-sm md:flex">
+          {Links}
+        </nav>
 
         {/* Right controls */}
         <div className="hidden items-center gap-4 md:flex">
           <ModeToggle />
           {user ? (
             <>
-              <div className="max-w-[10rem] truncate text-sm text-muted-foreground">
+              <span className="max-w-[12rem] truncate text-sm text-muted-foreground">
                 {displayName}
-              </div>
+              </span>
               <form>
                 <Button
                   variant="outline"
@@ -98,7 +98,7 @@ function Header({ user, compact = false }: MainHeaderProps) {
 
         {/* Mobile menu trigger */}
         <Sheet>
-          <SheetTrigger asChild className="md:hidden">
+          <SheetTrigger asChild className="ml-auto md:hidden">
             <Button
               variant="ghost"
               size="icon"
