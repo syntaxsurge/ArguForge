@@ -7,11 +7,10 @@ import { eq } from "drizzle-orm";
 
 import { Conversation } from "@/lib/conversations";
 import { db } from "@/lib/db";
-import { createDebate, updateDebate, getDebateById } from "@/lib/db/queries";
+import { createDebate, updateDebate } from "@/lib/db/queries";
 import { debates } from "@/lib/db/schema";
 import type { NewDebate } from "@/lib/db/schema";
 import { getCredits, decreaseCredits } from "@/lib/db/services/profile";
-import { generateDebateAnalysis } from "@/lib/gemini";
 import { createServerClient } from "@/lib/supabase";
 
 /**
@@ -48,7 +47,7 @@ export async function saveDebate(debateData: {
 }
 
 /**
- * Generate analysis JSON via Gemini and persist it.
+ * Temporarily stubbed debate analysis; full implementation will follow Sensay integration.
  */
 export async function generateDebateSummary(debateId: string): Promise<void> {
   const supabase = await createServerClient();
@@ -58,17 +57,8 @@ export async function generateDebateSummary(debateId: string): Promise<void> {
 
   if (!user) throw new Error("User not authenticated");
 
-  const debate = await getDebateById(debateId);
-  if (!debate) throw new Error("Debate not found");
-
-  const analysis = await generateDebateAnalysis(
-    debate.topic,
-    debate.stance,
-    debate.duration,
-    debate.transcript as Array<{ role: string; text: string; id: string }>,
-  );
-
-  await updateDebate(debateId, { analysis });
+  // Update debate with empty analysis placeholder
+  await updateDebate(debateId, { analysis: null });
   revalidatePath(`/app/debate/${debateId}`);
 }
 
