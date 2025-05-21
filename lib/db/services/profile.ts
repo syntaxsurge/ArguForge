@@ -1,4 +1,3 @@
-// lib/db/services/profile.ts
 "use server";
 
 import { cache } from "react";
@@ -28,7 +27,7 @@ export const getProfile = cache(
 );
 
 /**
- * Insert or update a user profile
+ * Insert or update a user profile (legacy helper without Sensay fields)
  */
 export async function upsertProfile(profile: {
   id: string;
@@ -41,19 +40,60 @@ export async function upsertProfile(profile: {
     .insert(profiles)
     .values({
       id: profile.id,
-      email: profile.email || null,
-      username: profile.username || null,
-      fullName: profile.fullName || null,
-      avatarUrl: profile.avatarUrl || null,
+      email: profile.email ?? null,
+      username: profile.username ?? null,
+      fullName: profile.fullName ?? null,
+      avatarUrl: profile.avatarUrl ?? null,
       updatedAt: new Date(),
     })
     .onConflictDoUpdate({
       target: profiles.id,
       set: {
-        email: profile.email || null,
-        username: profile.username || null,
-        fullName: profile.fullName || null,
-        avatarUrl: profile.avatarUrl || null,
+        email: profile.email ?? null,
+        username: profile.username ?? null,
+        fullName: profile.fullName ?? null,
+        avatarUrl: profile.avatarUrl ?? null,
+        updatedAt: new Date(),
+      },
+    });
+}
+
+/**
+ * Extended upsert that can also persist Sensay credentials.
+ */
+export async function upsertProfileExtended(profile: {
+  id: string;
+  email?: string | null;
+  username?: string | null;
+  fullName?: string | null;
+  avatarUrl?: string | null;
+  sensayApiKey?: string | null;
+  sensayOrgId?: string | null;
+  sensayKeyValidUntil?: Date | null;
+}): Promise<void> {
+  await db
+    .insert(profiles)
+    .values({
+      id: profile.id,
+      email: profile.email ?? null,
+      username: profile.username ?? null,
+      fullName: profile.fullName ?? null,
+      avatarUrl: profile.avatarUrl ?? null,
+      sensayApiKey: profile.sensayApiKey ?? null,
+      sensayOrgId: profile.sensayOrgId ?? null,
+      sensayKeyValidUntil: profile.sensayKeyValidUntil ?? null,
+      updatedAt: new Date(),
+    })
+    .onConflictDoUpdate({
+      target: profiles.id,
+      set: {
+        email: profile.email ?? null,
+        username: profile.username ?? null,
+        fullName: profile.fullName ?? null,
+        avatarUrl: profile.avatarUrl ?? null,
+        sensayApiKey: profile.sensayApiKey ?? null,
+        sensayOrgId: profile.sensayOrgId ?? null,
+        sensayKeyValidUntil: profile.sensayKeyValidUntil ?? null,
         updatedAt: new Date(),
       },
     });
@@ -99,3 +139,23 @@ export async function setCredits(
     })
     .where(eq(profiles.id, userId));
 }
+
+/**
+ * Return Sensay credentials for a user, or null if not stored.
+ */
+export const getSensayCredentials = cache(
+  async (
+    userId: string,
+  ): Promise<{ apiKey: string; orgId: string } | null> => {
+    const [row] = await db
+      .select({
+        apiKey: profiles.sensayApiKey,
+        orgId: profiles.sensayOrgId,
+      })
+      .from(profiles)
+      .where(eq(profiles.id, userId));
+
+    if (!row?.apiKey || !row?.orgId) return null;
+    return { apiKey: row.apiKey, orgId: row.orgId };
+  },
+);

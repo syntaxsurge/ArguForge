@@ -20,6 +20,13 @@ export const profiles = pgTable("profiles", {
   avatarUrl: text("avatar_url"),
   email: text("email"),
   credits: integer("credits").notNull().default(1),
+
+  // 🔑 Sensay credentials (nullable – set only for admins who redeem invites)
+  sensayApiKey: text("sensay_api_key"),
+  sensayOrgId: text("sensay_org_id"),
+  sensayKeyValidUntil: timestamp("sensay_key_valid_until", {
+    withTimezone: true,
+  }),
 });
 
 /**
