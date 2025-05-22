@@ -11,10 +11,6 @@ import { Tool } from "@/lib/tools";
 import { logError } from "@/lib/utils/logger";
 import type { Stance, Message } from "@/types";
 
-/**
- * The return type for the hook, matching Approach A
- * (RefObject<HTMLDivElement | null> for the audioIndicatorRef).
- */
 interface UseWebRTCAudioSessionReturn {
   status: string;
   isSessionActive: "inactive" | "active" | "connecting";
