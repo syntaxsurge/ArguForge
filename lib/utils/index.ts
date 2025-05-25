@@ -1,6 +1,12 @@
 import type { Message } from "@/types";
 
-import { cn } from "./cn";
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
 
 /**
  * Format a number of seconds to a zero-padded `mm:ss` string.
@@ -65,4 +71,3 @@ export function extractTokenUsage(messages: Message[]): {
   };
 }
 
-export { cn };

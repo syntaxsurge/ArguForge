@@ -50,6 +50,7 @@
     "@radix-ui/react-visually-hidden": "^1.2.2",
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.49.4",
+    "@tanstack/react-table": "^8.21.3",
     "@types/canvas-confetti": "^1.9.0",
     "@vercel/analytics": "^1.4.1",
     "canvas-confetti": "^1.9.3",
