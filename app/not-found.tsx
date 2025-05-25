@@ -2,24 +2,18 @@ import Link from "next/link";
 
 import { ArrowLeft, Flame, Home } from "lucide-react";
 
-import { MainHeader } from "@/components/navigation/main-header";
+import SiteHeader from "@/components/site-header";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/config/site";
-import { createServerClient } from "@/lib/supabase";
 
 /**
  * Global 404 page with compact header, reduced top gap, and decorative accents.
  */
-export default async function NotFound() {
-  const supabase = await createServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
+export default function NotFound() {
   return (
     <>
       {/* Site header */}
-      <MainHeader user={user} compact />
+      <SiteHeader />
 
       {/* Content */}
       <main className="relative flex flex-col items-center px-6 pt-20 pb-24 min-h-[80vh]">

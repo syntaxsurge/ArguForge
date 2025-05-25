@@ -12,7 +12,7 @@ import {
   Scale,
 } from "lucide-react";
 
-import { MainHeader } from "@/components/navigation/main-header";
+import SiteHeader from "@/components/site-header";
 import { Button } from "@/components/ui/button";
 import { createServerClient } from "@/lib/supabase";
 
@@ -78,7 +78,7 @@ export default async function HomePage() {
       </div>
 
       {/* Sticky blurred header */}
-      <MainHeader user={user} compact />
+      <SiteHeader />
 
       {/* Hero */}
       <section className="mx-auto flex max-w-7xl flex-col items-center gap-12 px-4 sm:px-6 pt-20 lg:flex-row lg:items-start lg:gap-24 lg:pt-32">

@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-import { MainHeader } from "@/components/navigation/main-header";
+import SiteHeader from "@/components/site-header";
 import { createServerClient } from "@/lib/supabase";
 
 export default async function DashboardLayout({
@@ -19,7 +19,7 @@ export default async function DashboardLayout({
 
   return (
     <div>
-      <MainHeader user={user} />
+      <SiteHeader />
       <div className="px-4 container mx-auto">{children}</div>
     </div>
   );
